@@ -38,7 +38,9 @@
      :id (mt/id :checkins))))
 
 (defn- sorted-results [results]
-  (sort-by (juxt (comp (var-get #'metabase.search.scoring/model->sort-position) :model) :name) results))
+  (->> results
+       (sort-by (juxt (comp (var-get #'metabase.search.scoring/model->sort-position) :model)))
+       reverse))
 
 (defn- make-result
   [name & kvs]
